@@ -31,10 +31,10 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: mydatabase
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: bo_mysoho
+      MYSQL_USER: mysoho
+      MYSQL_PASSWORD: 1234
     volumes:
       - mysql-data:/var/lib/mysql
 
