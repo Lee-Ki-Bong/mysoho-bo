@@ -12,19 +12,20 @@ import { AdminSalesStatistic } from './entities/admin_sales_statistic.entity';
 import { Inquires } from './entities/inquires.entity';
 
 @Module({
-    imports: [
-        TypeOrmModule.forFeature([
-            Admin,
-            AdminAddInfo,
-            AdminPg,
-            AdminSearch,
-            AdminSns,
-            AdminServerInfo,
-            AdminSalesStatistic,
-            Inquires,
-        ]),
-    ],
-    controllers: [AdminController],
-    providers: [AdminService],
+  imports: [
+    TypeOrmModule.forFeature([
+      Admin,
+      AdminAddInfo,
+      AdminPg,
+      AdminSearch,
+      AdminSns,
+      AdminServerInfo,
+      AdminSalesStatistic,
+      Inquires,
+    ]),
+  ],
+  controllers: [AdminController],
+  providers: [AdminService],
+  exports: [AdminService],
 })
 export class AdminModule {}

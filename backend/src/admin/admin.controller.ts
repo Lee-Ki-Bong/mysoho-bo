@@ -17,6 +17,7 @@ import {
 import { Admin } from './entities/admin.entity';
 import { DashboardResponseDto } from './dto/dashboard-response.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { AdminListResponseDto } from './dto/admin-list-item.dto';
 
 @ApiTags('admin')
 @ApiBearerAuth() // 이 컨트롤러의 모든 API에 Bearer Auth 적용
@@ -38,7 +39,7 @@ export class AdminController {
 
     @Get()
     @ApiOperation({ summary: '관리자 목록 조회 (페이징 및 검색)' })
-    @ApiResponse({ status: 200, description: '관리자 목록을 반환합니다.' })
+    @ApiResponse({ status: 200, description: '관리자 목록을 반환합니다.', type: AdminListResponseDto })
     findAll(
         @Query(new ValidationPipe({ transform: true }))
         getAdminsDto: GetAdminsDto,
