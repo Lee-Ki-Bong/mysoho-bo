@@ -1,25 +1,20 @@
 import { Injectable, UnauthorizedException, NotFoundException } from '@nestjs/common';
-import { AdminService } from '../admin/admin.service';
+import { ManagerService } from '../manager/manager.service';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly adminService: AdminService,
+    private readonly managerService: ManagerService,
     private readonly jwtService: JwtService,
   ) {}
 
-  async ssoLogin(adm_id: string) {
-    const admin = await this.adminService.findOne(adm_id);
-    if (!admin) {
-      throw new NotFoundException(`Admin with ID ${adm_id} not found`);
+  async issueManagerSsoToken(userId: string) {
+    const manager = await this.managerService.findOneByUserId(userId);
+    if (!manager) {
+      throw new NotFoundException(`사용자 ID가 ${userId}인 관리자를 찾을 수 없습니다.`);
     }
-    const payload = { username: admin.adm_id, sub: admin.adm_seq };
-    return this.getTokens(payload);
-  }
-
-  async guestLogin() {
-    const payload = { username: 'guest', sub: 0 }; // Guest user
+    const payload = { username: manager.mng_user, sub: manager.mng_id, type: 'manager' };
     return this.getTokens(payload);
   }
 
@@ -29,8 +24,11 @@ export class AuthService {
         secret: process.env.JWT_REFRESH_SECRET,
       });
 
-      // Here you might want to check if the user still exists or is not blocked
-      const newPayload = { username: payload.username, sub: payload.sub };
+      if (payload.type !== 'manager') {
+        throw new UnauthorizedException('유효하지 않은 토큰 타입입니다.');
+      }
+
+      const newPayload = { username: payload.username, sub: payload.sub, type: 'manager' };
       return {
         accessToken: this.jwtService.sign(newPayload, {
           secret: process.env.JWT_SECRET,
@@ -38,11 +36,11 @@ export class AuthService {
         }),
       };
     } catch (e) {
-      throw new UnauthorizedException('Invalid refresh token');
+      throw new UnauthorizedException('유효하지 않은 리프레시 토큰입니다.');
     }
   }
 
-  private async getTokens(payload: { username: string; sub: number }) {
+  private async getTokens(payload: { username: string; sub: number; type: string }) {
     const accessToken = this.jwtService.sign(payload, {
       secret: process.env.JWT_SECRET,
       expiresIn: '15m',
