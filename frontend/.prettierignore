@@ -1,0 +1,9 @@
+# VSCode에서 formatOnSave 시 Prettier는 .prettierignore를 참고
+node_modules/
+dist/
+build/
+coverage/
+*.png
+*.jpg
+*.svg
+*.mp4
