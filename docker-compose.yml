@@ -34,7 +34,14 @@ services:
       MYSQL_USER: mysoho
       MYSQL_PASSWORD: 1234
     volumes:
+      # 데이터 저장소
       - mysql-data:/var/lib/mysql
+      # my.cnf 강제 적용
+      - ./mysql/conf.d:/etc/mysql/conf.d
+      # 초기 SQL 스크립트 자동 실행
+      - ./mysql/dev_mysoho_schema.sql:/docker-entrypoint-initdb.d/1_dev_mysoho_schema.sql
+      - ./backend/src/database/schema.sql:/docker-entrypoint-initdb.d/2_schema.sql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
 volumes:
   mysql-data:

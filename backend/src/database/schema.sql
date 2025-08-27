@@ -63,6 +63,12 @@ INSERT INTO `roles` (`role_code`, `role_name`, `role_desc`) VALUES
 ('OPERATOR', '운영자', '상점 관리, 운영 등 핵심 기능을 담당하는 관리자'),
 ('SUPPORT', '서포터', '고객 지원을 위한 조회 위주의 최소 권한을 가진 관리자');
 
+-- manager 시드: roles가 먼저 존재해야 FK(fk_manager_role)를 통과한다
+INSERT INTO `manager`
+(`mng_user`, `mng_ip`, `mng_name`, `mng_part`, `mng_group`, `role_code`, `mng_desc`, `mng_status`, `mng_last_connection`, `created_at`, `updated_at`)
+VALUES
+('super_tester', '', '테스트최고관리자', '개발팀', 'SUPER_ADMIN', 'SUPER_ADMIN', '테스트용 최고 관리자 계정', 'active', '1000-01-01', '1000-01-01 00:00:00', '1000-01-01 00:00:00');
+
 -- 2. 권한(Permissions) 샘플 데이터 (prm_code, prm_name, prm_desc)
 -- 기존 permissions 테이블에 데이터를 추가합니다.
 INSERT INTO `permissions` (`prm_code`, `prm_name`, `prm_desc`) VALUES

@@ -7,7 +7,6 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -59,7 +58,7 @@ CREATE TABLE `admin` (
   UNIQUE KEY `adm_id` (`adm_id`),
   KEY `adm_name` (`adm_name`,`adm_phone`),
   KEY `adm_domain` (`adm_domain`)
-) ENGINE=MyISAM AUTO_INCREMENT=19648 DEFAULT CHARSET=utf8 COMMENT='상점 관리자 기본 정보 v2017-07-28';
+) ENGINE=InnoDB AUTO_INCREMENT=19648 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='상점 관리자 기본 정보 v2017-07-28';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,7 +74,7 @@ CREATE TABLE `admin_add_info` (
   `aai_bank_number` varchar(30) NOT NULL DEFAULT '' COMMENT '계좌 번호',
   `aai_bank_owner` varchar(20) NOT NULL DEFAULT '' COMMENT '계좌 예금주',
   PRIMARY KEY (`aai_adm_seq`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='상점 관리자 부가 정보 v2017-08-07';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='상점 관리자 부가 정보 v2017-08-07';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +93,7 @@ CREATE TABLE `admin_lives_statistic` (
   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '등록 날짜',
   PRIMARY KEY (`als_id`),
   KEY `idx_created_at` (`created_at`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='LIVE 상점 통계 정보(daily) v2021-07-09';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='LIVE 상점 통계 정보(daily) v2021-07-09';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,7 +116,7 @@ CREATE TABLE `admin_pg` (
   KEY `idx_ap_code` (`ap_code`),
   KEY `idx_ap_manager_set_date` (`ap_manager_set_date`),
   KEY `idx_created_at` (`created_at`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='상점 pg 정보 2018-12-24';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='상점 pg 정보 2018-12-24';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,7 +138,7 @@ CREATE TABLE `admin_pg_history` (
   KEY `idx_aph_adm_id` (`aph_adm_id`),
   KEY `idx_aph_code` (`aph_code`),
   KEY `idx_aph_created_at` (`created_at`)
-) ENGINE=MyISAM AUTO_INCREMENT=215 DEFAULT CHARSET=utf8 COMMENT='상점 pg정보 수정내역 2019-11-01';
+) ENGINE=InnoDB AUTO_INCREMENT=215 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='상점 pg정보 수정내역 2019-11-01';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,7 +193,7 @@ CREATE TABLE `admin_sales_statistic` (
   KEY `ass_adm_id` (`ass_adm_id`),
   KEY `std_date` (`std_date`),
   KEY `idx_ass_shop_total_price` (`ass_shop_total_price`)
-) ENGINE=MyISAM AUTO_INCREMENT=2912591 DEFAULT CHARSET=utf8 COMMENT='상점 매출 통계용 정보(daily) v2022-02-21';
+) ENGINE=InnoDB AUTO_INCREMENT=2912591 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='상점 매출 통계용 정보(daily) v2022-02-21';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -229,7 +228,7 @@ CREATE TABLE `admin_sales_statistic_20190903` (
   KEY `ass_adm_id` (`ass_adm_id`),
   KEY `std_date` (`std_date`),
   KEY `idx_ass_shop_total_price` (`ass_shop_total_price`)
-) ENGINE=MyISAM AUTO_INCREMENT=2912439 DEFAULT CHARSET=utf8 COMMENT='상점 매출 통계용 정보(daily) v2017-09-14';
+) ENGINE=InnoDB AUTO_INCREMENT=2912439 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='상점 매출 통계용 정보(daily) v2017-09-14';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -264,7 +263,7 @@ CREATE TABLE `admin_sales_statistic_new` (
   KEY `ass_adm_id` (`ass_adm_id`),
   KEY `std_date` (`std_date`),
   KEY `idx_ass_shop_total_price` (`ass_shop_total_price`)
-) ENGINE=MyISAM AUTO_INCREMENT=2912359 DEFAULT CHARSET=utf8 COMMENT='상점 매출 통계용 정보(daily) v2017-09-14';
+) ENGINE=InnoDB AUTO_INCREMENT=2912359 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='상점 매출 통계용 정보(daily) v2017-09-14';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -301,7 +300,7 @@ CREATE TABLE `admin_search` (
   PRIMARY KEY (`as_adm_id`),
   KEY `idx_as_mobile_skin` (`as_mobile_skin`),
   KEY `idx_as_pc_skin` (`as_pc_skin`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='상점 검색 정보 v2017-09-14';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='상점 검색 정보 v2017-09-14';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -319,7 +318,7 @@ CREATE TABLE `admin_server_info` (
   `asi_db` varchar(255) NOT NULL DEFAULT '' COMMENT 'DB 명',
   PRIMARY KEY (`asi_adm_seq`),
   KEY `asi_db` (`asi_db`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='상점 server 정보 v2017-07-28';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='상점 server 정보 v2017-07-28';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -340,7 +339,7 @@ CREATE TABLE `admin_sms_auth` (
   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '인증번호 발급 날짜',
   `updated_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '인증 완료 날짜',
   PRIMARY KEY (`asa_adm_id`,`asa_type`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='휴대폰 인증 v2017-07-28';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='휴대폰 인증 v2017-07-28';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -358,7 +357,7 @@ CREATE TABLE `admin_sns` (
   `as_date` date NOT NULL DEFAULT '0000-00-00' COMMENT '등록일',
   PRIMARY KEY (`adm_id`,`as_type`),
   UNIQUE KEY `index_asid` (`as_type`,`as_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='상점 관리자 SNS 정보 v2017-08-01';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='상점 관리자 SNS 정보 v2017-08-01';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -375,7 +374,7 @@ CREATE TABLE `admin_ssl` (
   `issued_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '인증서 발급 날짜',
   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '등록 날짜',
   PRIMARY KEY (`as_adm_id`,`as_domain`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='상점 ssl 인증서 발급정보 v2017-09-06';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='상점 ssl 인증서 발급정보 v2017-09-06';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -395,7 +394,7 @@ CREATE TABLE `admin_super_login_keys` (
   `updated_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '수정 일자',
   PRIMARY KEY (`ask_seq`,`ask_adm_user_id`),
   UNIQUE KEY `idx_unique` (`ask_seq`,`ask_key`,`ask_adm_user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COMMENT='어드민 슈퍼로그인 접속 키';
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='어드민 슈퍼로그인 접속 키';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -414,7 +413,7 @@ CREATE TABLE `admin_super_login_logs` (
   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '접속 일자',
   `updated_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '수정 일자',
   PRIMARY KEY (`asl_seq`,`asl_adm_user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=153 DEFAULT CHARSET=utf8 COMMENT='어드민 슈퍼로그인 접속 로그';
+) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='어드민 슈퍼로그인 접속 로그';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -433,7 +432,7 @@ CREATE TABLE `block_ip` (
   `updated_at` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '수정일',
   PRIMARY KEY (`bi_seq`),
   UNIQUE KEY `bi_ipv4` (`bi_ipv4`)
-) ENGINE=MyISAM AUTO_INCREMENT=7967 DEFAULT CHARSET=utf8 COMMENT='mysoho 로그인 차단 관리';
+) ENGINE=InnoDB AUTO_INCREMENT=7967 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='mysoho 로그인 차단 관리';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -452,7 +451,7 @@ CREATE TABLE `category` (
   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '등록일',
   `updated_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '수정일',
   PRIMARY KEY (`cate_id`,`cate_parent_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COMMENT='마이소호 판매 아이템 테이블';
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='마이소호 판매 아이템 테이블';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -466,7 +465,7 @@ CREATE TABLE `category_sort` (
   `cs_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '판매 아이템 고유번호',
   `cs_sort` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '판매 아이템 순서',
   PRIMARY KEY (`cs_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COMMENT='마이소호 판매 아이템 순서 테이블';
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='마이소호 판매 아이템 순서 테이블';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -485,7 +484,7 @@ CREATE TABLE `category_tmp` (
   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '등록일',
   `updated_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '수정일',
   PRIMARY KEY (`cate_id`,`cate_parent_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COMMENT='마이소호 임시 판매 아이템 테이블';
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='마이소호 임시 판매 아이템 테이블';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -499,7 +498,7 @@ CREATE TABLE `category_tmp_sort` (
   `cs_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '판매 아이템 고유번호',
   `cs_sort` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '판매 아이템 순서',
   PRIMARY KEY (`cs_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COMMENT='임시 판매 아이템 순서';
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='임시 판매 아이템 순서';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -514,7 +513,7 @@ CREATE TABLE `custom_func_info` (
   `cfi_func_kor_name` varchar(20) NOT NULL DEFAULT '' COMMENT '커스텀기능 한글이름',
   `cfi_func_explain` varchar(200) NOT NULL DEFAULT '' COMMENT '커스텀기능 설명',
   PRIMARY KEY (`cfi_func_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -538,7 +537,7 @@ CREATE TABLE `dev_account` (
   `updated_at` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '수정일',
   PRIMARY KEY (`da_id`),
   UNIQUE KEY `da_database_name` (`da_database_name`,`da_shop_id`,`da_src_ver`)
-) ENGINE=MyISAM AUTO_INCREMENT=107 DEFAULT CHARSET=utf8 COMMENT='개발서버 계정 관리 v2019-11-14';
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='개발서버 계정 관리 v2019-11-14';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -556,7 +555,7 @@ CREATE TABLE `dev_account_domain` (
   `dad_insert_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '등록일시',
   `dad_update_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '수정일시',
   PRIMARY KEY (`dad_seq`)
-) ENGINE=MyISAM AUTO_INCREMENT=649 DEFAULT CHARSET=utf8 COMMENT='DEV 계정 도메인 매칭';
+) ENGINE=InnoDB AUTO_INCREMENT=649 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='DEV 계정 도메인 매칭';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -579,7 +578,7 @@ CREATE TABLE `dormant_admin` (
   PRIMARY KEY (`dor_adm_seq`),
   UNIQUE KEY `dor_adm_id` (`dor_adm_id`),
   KEY `idx_dor_adm_domain` (`dor_adm_domain`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='휴면 상점 관리자 기본 정보 v2023-04-19';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='휴면 상점 관리자 기본 정보 v2023-04-19';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -596,7 +595,7 @@ CREATE TABLE `faq_category` (
   `fcg_insert_at` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '등록일시',
   `fcg_update_at` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '수정일시',
   PRIMARY KEY (`fcg_seq`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='FAQ 카테고리';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='FAQ 카테고리';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -619,7 +618,7 @@ CREATE TABLE `faq_contents` (
   `fct_update_at` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '수정일시',
   PRIMARY KEY (`fct_seq`),
   KEY `idx_fct_fcg_seq` (`fct_fcg_seq`)
-) ENGINE=MyISAM AUTO_INCREMENT=103 DEFAULT CHARSET=utf8 COMMENT='FAQ 내용';
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='FAQ 내용';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -650,7 +649,7 @@ CREATE TABLE `inquires` (
   `q_expiration_date` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '개인정보만료일',
   PRIMARY KEY (`q_no`),
   KEY `idx_q_id` (`q_adm_userid`)
-) ENGINE=MyISAM AUTO_INCREMENT=102 DEFAULT CHARSET=utf8 COMMENT='mysoho 1:1문의 리스트 v2018-09-13';
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='mysoho 1:1문의 리스트 v2018-09-13';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -664,7 +663,7 @@ CREATE TABLE `inquires_category_code` (
   `qcc_category` char(3) NOT NULL DEFAULT '' COMMENT '문의유형코드',
   `qcc_category_name` varchar(40) NOT NULL DEFAULT '' COMMENT '문의유형이름',
   PRIMARY KEY (`qcc_category`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='mysoho 1:1문의 유형코드 리스트  v2018-09-13';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='mysoho 1:1문의 유형코드 리스트  v2018-09-13';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -678,7 +677,7 @@ CREATE TABLE `inquires_status_code` (
   `qsc_status` char(3) NOT NULL DEFAULT '' COMMENT '처리상태코드',
   `qsc_status_name` varchar(40) NOT NULL DEFAULT '' COMMENT '처리상태이름',
   PRIMARY KEY (`qsc_status`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='mysoho 1:1문의 처리상태코드 리스트  v2018-09-13';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='mysoho 1:1문의 처리상태코드 리스트  v2018-09-13';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -702,7 +701,7 @@ CREATE TABLE `manager` (
   `updated_at` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '변경 날짜',
   PRIMARY KEY (`mng_id`),
   UNIQUE KEY `idx_mng_ip` (`mng_ip`)
-) ENGINE=MyISAM AUTO_INCREMENT=99 DEFAULT CHARSET=utf8 COMMENT='관리자 관리목록';
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='관리자 관리목록';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -719,7 +718,7 @@ CREATE TABLE `manager_permissions` (
   `created_at` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '등록일',
   PRIMARY KEY (`mp_id`),
   UNIQUE KEY `idx_unique` (`mp_mng_id`,`mp_prm_code`)
-) ENGINE=MyISAM AUTO_INCREMENT=1872 DEFAULT CHARSET=utf8 COMMENT='사용자 권한 테이블';
+) ENGINE=InnoDB AUTO_INCREMENT=1872 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='사용자 권한 테이블';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -740,7 +739,7 @@ CREATE TABLE `manual_contents` (
   `mct_update_at` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '수정일',
   PRIMARY KEY (`mct_seq`),
   KEY `idx_mct_psc_id` (`mct_msc_seq`)
-) ENGINE=MyISAM AUTO_INCREMENT=287 DEFAULT CHARSET=utf8 COMMENT='마이소호 메뉴얼 컨텐츠';
+) ENGINE=InnoDB AUTO_INCREMENT=287 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='마이소호 메뉴얼 컨텐츠';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -759,7 +758,7 @@ CREATE TABLE `manual_faq_recommend_list` (
   `mfr_update_at` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '수정일',
   PRIMARY KEY (`mfr_seq`),
   KEY `idx_mfc_id` (`mfr_seq`)
-) ENGINE=MyISAM AUTO_INCREMENT=85 DEFAULT CHARSET=utf8 COMMENT='매뉴얼 faq 주천리스트';
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='매뉴얼 faq 주천리스트';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -779,7 +778,7 @@ CREATE TABLE `manual_large_category` (
   `mlc_update_at` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '수정일',
   PRIMARY KEY (`mlc_seq`),
   KEY `idx_mlc_id` (`mlc_seq`)
-) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=utf8 COMMENT='마이소호 메뉴얼 대분류';
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='마이소호 메뉴얼 대분류';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -799,7 +798,7 @@ CREATE TABLE `manual_middle_category` (
   `mmc_update_at` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '수정일',
   PRIMARY KEY (`mmc_seq`),
   KEY `idx_mmc_id` (`mmc_seq`)
-) ENGINE=MyISAM AUTO_INCREMENT=114 DEFAULT CHARSET=utf8 COMMENT='마이소호 메뉴얼 중분류';
+) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='마이소호 메뉴얼 중분류';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -821,7 +820,7 @@ CREATE TABLE `manual_small_category` (
   `msc_update_at` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '수정일',
   PRIMARY KEY (`msc_seq`),
   KEY `idx_mmc_id` (`msc_seq`)
-) ENGINE=MyISAM AUTO_INCREMENT=287 DEFAULT CHARSET=utf8 COMMENT='마이소호 메뉴얼 소분류';
+) ENGINE=InnoDB AUTO_INCREMENT=287 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='마이소호 메뉴얼 소분류';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -849,7 +848,7 @@ CREATE TABLE `mobile_identify_logs` (
   PRIMARY KEY (`id`),
   KEY `phone` (`phone`),
   KEY `identifier_ci` (`identifier_ci`)
-) ENGINE=MyISAM AUTO_INCREMENT=464 DEFAULT CHARSET=utf8 COMMENT='휴대폰 본인 인증 로그';
+) ENGINE=InnoDB AUTO_INCREMENT=464 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='휴대폰 본인 인증 로그';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -871,7 +870,7 @@ CREATE TABLE `notice` (
   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '등록일',
   `updated_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`nid`)
-) ENGINE=MyISAM AUTO_INCREMENT=108 DEFAULT CHARSET=utf8 COMMENT='mysoho 공지사항 게시판 리스트 v2018-01-31';
+) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='mysoho 공지사항 게시판 리스트 v2018-01-31';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -887,7 +886,7 @@ CREATE TABLE `permissions` (
   `prm_desc` varchar(200) NOT NULL DEFAULT '' COMMENT '권한 설명',
   `created_at` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '등록일',
   PRIMARY KEY (`prm_code`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='권한 테이블';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='권한 테이블';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -903,7 +902,7 @@ CREATE TABLE `pg_bank_info` (
   `pg_bank_name` varchar(50) NOT NULL DEFAULT '' COMMENT 'pg 은행명',
   `created_at` date NOT NULL DEFAULT '0000-00-00' COMMENT '등록일',
   PRIMARY KEY (`pg_code`,`pg_bank_code`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='pg 은행 정보 테이블';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='pg 은행 정보 테이블';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -920,7 +919,7 @@ CREATE TABLE `plugin` (
   `pi_open_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '오픈 날짜',
   PRIMARY KEY (`pi_code`),
   UNIQUE KEY `pi_name` (`pi_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='플러그인 정보 v2018-06-01';
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='플러그인 정보 v2018-06-01';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -939,7 +938,7 @@ CREATE TABLE `plugin_statistic` (
   `ps_std_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '수집 기준 날짜',
   PRIMARY KEY (`ps_id`),
   KEY `ps_std_date` (`ps_std_date`)
-) ENGINE=MyISAM AUTO_INCREMENT=4358 DEFAULT CHARSET=utf8 COMMENT='플러그인 통계용 정보(daily) v2018-08-07';
+) ENGINE=InnoDB AUTO_INCREMENT=4358 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='플러그인 통계용 정보(daily) v2018-08-07';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -974,7 +973,7 @@ CREATE TABLE `qa` (
   KEY `idx_qa_name_phone` (`qa_name`,`qa_phone`),
   KEY `idx_qa_status` (`qa_status`),
   KEY `idx_qcreated_at` (`created_at`)
-) ENGINE=MyISAM AUTO_INCREMENT=264 DEFAULT CHARSET=utf8 COMMENT='mysoho 1:1문의 리스트 v2019-01-14';
+) ENGINE=InnoDB AUTO_INCREMENT=264 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='mysoho 1:1문의 리스트 v2019-01-14';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -997,7 +996,7 @@ CREATE TABLE `qa_reply` (
   `updated_at` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '수정일',
   PRIMARY KEY (`qr_id`),
   KEY `idx_qr_qa_id` (`qr_qa_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=65 DEFAULT CHARSET=utf8 COMMENT='mysoho 1:1문의 답변 리스트 v2019-01-22';
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='mysoho 1:1문의 답변 리스트 v2019-01-22';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1019,7 +1018,7 @@ CREATE TABLE `reply` (
   `rp_update_date` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '수정일',
   PRIMARY KEY (`rp_no`),
   KEY `idx_rq_id` (`rp_q_no`,`rp_q_no_sort`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='mysoho 1:1문의(답글) 리스트 v2018-09-13';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='mysoho 1:1문의(답글) 리스트 v2018-09-13';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1035,7 +1034,7 @@ CREATE TABLE `reserved_admin` (
   `ra_created_at` date NOT NULL DEFAULT '0000-00-00' COMMENT '등록일',
   `ra_issued_at` date NOT NULL DEFAULT '0000-00-00' COMMENT '발급일',
   PRIMARY KEY (`adm_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='상점 관리자 SNS 가입 아이디(미리 정의된) v2017-08-01';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='상점 관리자 SNS 가입 아이디(미리 정의된) v2017-08-01';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1056,7 +1055,7 @@ CREATE TABLE `server_info` (
   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '서버 생성 날짜',
   `updated_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '서버 상태 변경 날짜',
   PRIMARY KEY (`si_seq`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='mysoho용 server 리스트 v2017-07-28';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='mysoho용 server 리스트 v2017-07-28';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1079,7 +1078,7 @@ CREATE TABLE `term` (
   PRIMARY KEY (`tid`),
   KEY `type` (`type`),
   KEY `is_display` (`is_display`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='이용약관, 개인정보처리방침';
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='이용약관, 개인정보처리방침';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1097,7 +1096,7 @@ CREATE TABLE `user_adjustment_history` (
   `uah_insert_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '처리일시',
   PRIMARY KEY (`uah_seq`),
   KEY `idx_insert_at` (`uah_insert_at`)
-) ENGINE=MyISAM AUTO_INCREMENT=226 DEFAULT CHARSET=utf8 COMMENT='상점 정산 변경 내역기록';
+) ENGINE=InnoDB AUTO_INCREMENT=226 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='상점 정산 변경 내역기록';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1119,7 +1118,7 @@ CREATE TABLE `user_adjustment_list` (
   `ual_insert_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '등록일시',
   `ual_update_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '수정일시',
   PRIMARY KEY (`ual_seq`)
-) ENGINE=MyISAM AUTO_INCREMENT=109 DEFAULT CHARSET=utf8 COMMENT='상점 정산 리스트';
+) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='상점 정산 리스트';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
