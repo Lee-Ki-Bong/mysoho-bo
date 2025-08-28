@@ -4,6 +4,8 @@ import Dashboard from '@/pages/Dashboard'
 import Home from '@/pages/Home'
 import ShopList from '@/pages/ShopList'
 import SuperLogin from '@/pages/SuperLogin'
+import { authLoader } from '@/features/auth/api/auth.loader'
+import { queryClient } from '@/shared/lib/queryClient'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -15,6 +17,7 @@ const App = () => {
     {
       path: '/',
       element: <AppLayout />,
+      loader: authLoader(queryClient),
       children: [
         { index: true, Component: Home, handle: { breadcrumb: '홈' } },
         { path: 'dashboard', Component: Dashboard, handle: { breadcrumb: '대시보드' } },

@@ -1,4 +1,4 @@
-import { ChevronsUpDown,  LogIn, LogOut } from 'lucide-react'
+import { ChevronsUpDown, Loader2, LogIn, LogOut } from 'lucide-react'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
@@ -15,6 +15,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar'
+import { NavLink } from 'react-router-dom'
+import { useSessionQuery } from '../auth/api/auth.queries'
 
 export function NavUser({
   user,
@@ -25,7 +27,16 @@ export function NavUser({
     avatar: string
   }
 }) {
+  const { data, isPending, error } = useSessionQuery()
   const { isMobile } = useSidebar()
+
+  if (isPending)
+    return (
+      <div className='flex justify-center items-center gap-2'>
+        <p className='text-xs'>로그인 정보 확인중...</p>
+        <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+      </div>
+    )
 
   return (
     <SidebarMenu>
@@ -75,8 +86,10 @@ export function NavUser({
               LogIn
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <LogIn />
-              guest
+              <NavLink to={'superlogin'} end className='flex gap-2'>
+                <LogIn />
+                Super Login
+              </NavLink>
             </DropdownMenuItem>
             <DropdownMenuItem>
               <LogOut />
