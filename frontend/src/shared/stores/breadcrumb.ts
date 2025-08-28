@@ -47,14 +47,14 @@ function findTrail(
 }
 
 export const useBreadcrumbStore = create<BreadcrumbState>((set, get) => ({
-  items: [{ label: 'Mysoho Back-office', href: '/' }],
+  items: [{ label: 'Mysoho Back-Office', href: '/' }],
   active: null,
 
   set: items => set({ items }),
 
   setFromShadcnNav: (nav, pathname) => {
     const trail = findTrail(nav, pathname)
-    const crumbs: Crumb[] = [{ label: 'Mysoho Back-office', href: '/' }]
+    const crumbs: Crumb[] = [{ label: 'Mysoho Back-Office', href: '/' }]
     const active: ActiveMenu = { path: pathname }
 
     if (trail) {
