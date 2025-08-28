@@ -1,98 +1,106 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 마이소호 백오피스 백엔드
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+이 프로젝트는 마이소호 백오피스의 백엔드 시스템입니다. NestJS 프레임워크를 기반으로 구축되었습니다.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 인증 시스템 (Authentication)
 
-## Description
+백엔드 시스템의 인증은 JWT(JSON Web Token)를 사용한 SSO(Single Sign-On) 방식으로 처리됩니다.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### 인증 흐름
 
-## Project setup
+1.  **SSO 로그인 요청:** 외부 SSO 시스템에서 인증을 완료한 후, 프론트엔드에서 관리자 `userId`를 받아 `/auth/manager/sso-login` 엔드포인트로 요청을 보냅니다.
 
-```bash
-$ npm install
+2.  **토큰 발급:**
+    -   서버는 전달받은 `userId`를 사용해 `manager` 테이블에서 관리자 정보를 조회합니다.
+    -   관리자 정보가 확인되면, **Access Token**과 **Refresh Token**을 생성하여 발급합니다.
+        -   **Access Token (액세스 토큰):**
+            -   Payload: `{ username, sub, type }`
+            -   유효기간: 15분
+            -   전달 방식: API 응답 본문
+        -   **Refresh Token (리프레시 토큰):**
+            -   유효기간: 7일
+            -   전달 방식: `HttpOnly` Secure Cookie
+
+3.  **API 접근:**
+    -   클라이언트는 발급받은 `accessToken`을 `Authorization: Bearer <token>` 헤더에 담아 API를 요청합니다.
+    -   서버의 `JwtStrategy`는 이 토큰을 검증합니다.
+    -   검증이 성공하면, 토큰의 payload에 포함된 사용자 정보(`username`)를 이용해 DB에서 전체 관리자 프로필(역할 및 권한 포함)을 조회하여 `request.user` 객체에 첨부합니다.
+
+4.  **액세스 토큰 갱신:**
+    -   `accessToken`이 만료되면, 클라이언트는 `/auth/manager/refresh` 엔드포인트로 요청을 보냅니다.
+    -   이때 요청에는 쿠키에 담긴 `refreshToken`이 자동으로 포함됩니다.
+    -   서버는 `refreshToken`을 검증하고, 유효하다면 새로운 `accessToken`을 발급합니다.
+
+### 주요 인증 관련 파일
+
+-   `src/auth/auth.controller.ts`: 로그인, 토큰 갱신, 프로필 조회 API 엔드포인트 정의.
+-   `src/auth/auth.service.ts`: JWT 생성 및 검증 로직 담당.
+-   `src/auth/jwt.strategy.ts`: Passport-JWT 전략을 구현하여 API 요청의 `Bearer` 토큰을 검증하고 `request.user`를 주입.
+
+---
+
+## 권한 시스템 (Authorization)
+
+백오피스의 접근 제어는 역할 기반 권한 시스템(RBAC)을 통해 관리됩니다. 주요 구성 요소는 다음과 같습니다.
+
+### 1. 관리자 (Managers)
+
+-   **테이블:** `manager`
+-   **설명:** 백오피스에 로그인하는 사용자 계정입니다. 각 관리자는 하나의 역할을 가집니다.
+-   **주요 컬럼:**
+    -   `mng_id`: 관리자 고유 ID
+    -   `mng_user`: 로그인 아이디
+    -   `mng_name`: 관리자 이름
+    -   `role_code`: 할당된 역할 코드
+
+### 2. 역할 (Roles)
+
+-   **테이블:** `roles`
+-   **설명:** 관리자에게 부여되는 역할의 집합입니다. (예: 최고 관리자, 운영자, 서포터). 역할은 여러 권한을 가질 수 있습니다.
+-   **주요 컬럼:**
+    -   `role_code`: 역할 고유 코드 (e.g., `SUPER_ADMIN`)
+    -   `role_name`: 역할 이름 (e.g., `최고 관리자`)
+
+### 3. 권한 (Permissions)
+
+-   **테이블:** `permissions`
+-   **설명:** 시스템의 특정 기능이나 데이터에 접근할 수 있는 개별 권한입니다. (예: 상점 목록 조회, 공지사항 관리).
+-   **주요 컬럼:**
+    -   `prm_code`: 권한 고유 코드 (e.g., `store:list:read`)
+    -   `prm_name`: 권한 이름 (e.g., `상점 목록 조회`)
+
+### 4. 역할-권한 매핑 (Role-Permissions Mapping)
+
+-   **테이블:** `role_permissions`
+-   **설명:** 역할과 권한을 연결하는 테이블입니다. 어떤 역할이 어떤 권한을 가지는지 정의합니다.
+-   **주요 컬럼:**
+    -   `role_code`: 역할 코드
+    -   `permission_code`: 권한 코드
+
+### 5. 메뉴 (Menus)
+
+-   **테이블:** `menus`
+-   **설명:** 백오피스의 네비게이션 메뉴 구조입니다. 각 메뉴는 특정 권한을 요구할 수 있으며, 해당 권한이 있는 역할의 관리자에게만 메뉴가 표시됩니다.
+-   **주요 컬럼:**
+    -   `menu_id`: 메뉴 고유 ID
+    -   `menu_name`: 메뉴 이름
+    -   `menu_path`: 프론트엔드 경로
+    -   `permission_code`: 메뉴 접근에 필요한 권한 코드
+
+## 시스템 흐름
+
+전체적인 권한 시스템의 작동 방식은 다음과 같습니다.
+
+1.  **관리자 로그인:** 관리자가 ID/PW로 로그인합니다.
+2.  **역할 확인:** 시스템은 해당 관리자의 `manager` 정보를 통해 `role_code`를 확인합니다.
+3.  **권한 확인:** `role_permissions` 테이블을 참조하여 해당 `role_code`에 연결된 모든 `permission_code`를 가져옵니다.
+4.  **접근 제어:**
+    -   **API 요청:** 특정 API 엔드포인트에 `@Permissions('some:permission')` 와 같이 필요한 권한이 정의되어 있는 경우, 관리자의 권한 목록에 해당 권한이 있는지 확인하여 접근을 허용/거부합니다.
+    -   **메뉴 표시:** 관리자의 권한 목록을 기반으로 접근 가능한 메뉴만 필터링하여 화면에 표시합니다.
+
+```mermaid
+flowchart LR
+    Manager -- Has a --> Role;
+    Role -- Has many --> Permissions;
+    Menu -- Requires a --> Permission;
 ```
-
-## Compile and run the project
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).

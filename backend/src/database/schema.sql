@@ -72,6 +72,7 @@ VALUES
 -- 2. 권한(Permissions) 샘플 데이터 (prm_code, prm_name, prm_desc)
 -- 기존 permissions 테이블에 데이터를 추가합니다.
 INSERT INTO `permissions` (`prm_code`, `prm_name`, `prm_desc`) VALUES
+('menu:read', '메뉴 읽기', '모든 메뉴를 읽을 수 있는 기본 권한'),
 ('menu:store', '상점 관리 메뉴', '상점 관리 1뎁스 메뉴 접근 권한'),
 ('menu:operation', '운영 관리 메뉴', '운영 관리 1뎁스 메뉴 접근 권한'),
 ('menu:data', '데이터 센터 메뉴', '데이터 센터 1뎁스 메뉴 접근 권한'),
